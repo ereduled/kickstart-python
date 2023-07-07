@@ -35,7 +35,7 @@ This enables the automatic shell activation feature so that you will enter the c
 
 1. **Instantiate the nix tamplate**
    ```shell
-   nix flake init -t https://github.com/ereduled/kickstart-python
+   nix flake init -t github:ereduled/kickstart-python
    ```
 2. **Allow direnv**
 
