@@ -1,0 +1,13 @@
+name: base
+channels:
+  - https://conda.anaconda.org/conda-forge
+  # Can specify additional channels here, example for CUDA below
+  # - nvidia/label/cuda-11.8.0
+dependencies:
+  - python=3.10.12
+  # A dependency that's available on conda-forge
+  - bpython
+  - pip
+  # A dependency that's available on PyPi
+  - pip:
+    - zodb
