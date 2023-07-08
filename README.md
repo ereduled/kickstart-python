@@ -7,6 +7,7 @@ Welcome to **Kickstart-Python** - A fully cross-platform Nix Flake Template base
 
 ## 🌟 Features
 
+- **Trivial Deployment**: Using the official Devenv docker image, and running `nix develop --impure` allows you to deploy any app, making it trivial to scale up.
 - **Cross-platform**: It works seamlessly on all *nix platforms where Nixpkgs and Conda-Forge are supported. This means the same code works on aarch64
 - **Cuda Support**: Using the different channels within Conda makes it much easier to find and pin proper versions of your packages, including specific cuda versions by using the official nvidia channels
 - **Efficient package management**: By leveraging Micromamba, a faster and efficient version of the Conda package manager, the setup process is streamlined and quicker than ever.
