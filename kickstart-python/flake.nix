@@ -8,14 +8,17 @@
 
   outputs = inputs @ {flake-parts, ...}:
     flake-parts.lib.mkFlake {inherit inputs;} {
-
-      imports = [
-        inputs.devenv.flakeModule
-      ];
+      imports = [inputs.devenv.flakeModule];
 
       debug = true;
 
-      systems = ["x86_64-linux" "i686-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin"];
+      systems = [
+        "x86_64-linux"
+        "i686-linux"
+        "x86_64-darwin"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
 
       perSystem = {
         config,
@@ -25,29 +28,27 @@
         system,
         ...
       }: let
-        # Pro-tip Refactor into additional variables and definitions here to keep the core logic below clean
-        # Currently simply sets variable _ = 0 which does nothing
-        _ = 0;
+        # Pro-tip:
+        # Refactor into additional variables and definitions here to keep the core logic below clean
+        scripts = {
+          hello.exec = ''
+            echo "Hello world"
+          '';
+        };
+        packages = with pkgs; [micromamba];
+        devcontainer = {
+          enable = true;
+
+          settings.updateContentCommand = "nix develop --impure";
+
+          # Add extension IDs here (Extension>Copy ID in VSCode)
+          settings.customizations.vscode.extensions = ["charliermarsh.ruff" "kamadorueda.alejandra" "mkhl.direnv"];
+        };
       in {
         devenv.shells.default = {
           name = "kickstart-python";
-          devcontainer = {
-            # Enable to generate the .devcontainer.json file
-            enable = false;
-
-            settings.updateContentCommand = "nix develop --impure";
-
-            # Can add various extensions to your Vscode Devcontainer here
-            settings.customizations.vscode.extensions = [
-              "charliermarsh.ruff"
-              "kamadorueda.alejandra"
-              "mkhl.direnv"
-            ];
-          };
-
-          packages = with pkgs; [
-            micromamba
-          ];
+          scripts = scripts;
+          packages = packages;
 
           enterShell = ''
             export MAMBA_ROOT_PREFIX="$(pwd)/.mamba"
